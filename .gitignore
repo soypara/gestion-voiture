@@ -8,6 +8,8 @@ __pycache__/
 *.log
 *.pot
 *.pyc
+*/*.pyc
+*.pyo
 *.cover
 *.egg-info/
 *.egg
@@ -55,3 +57,7 @@ htmlcov/
 # --- Misc ---
 *.swp
 *.swo
+
+*/__pycache__/
+*/__pycache__
+*__pycache__
