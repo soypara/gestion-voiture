@@ -1,0 +1,120 @@
+# 🚗 Projet Web - Django + Vue.js + PostgreSQL avec Docker
+
+Ce projet est une application web complète composée de :
+- **Backend** : Django (API REST)
+- **Frontend** : Vue.js (interface utilisateur)
+- **Base de données** : PostgreSQL
+- **Orchestration** : Docker Compose
+
+---
+
+## 🧱 Structure du projet
+
+project-root/
+│
+├── backend/           # Code source du backend Django
+│   ├── Dockerfile
+│   ├── manage.py
+│   └── backend_project/
+│
+├── frontend/          # Code source du frontend Vue.js
+│   ├── Dockerfile
+│   └── src/
+│
+├── docker-compose.yml
+└── README.md
+
+---
+
+## ⚙️ Prérequis
+
+Avant de démarrer, assurez-vous d’avoir installé :
+
+- Docker
+- Docker Compose
+
+---
+
+## 🚀 Démarrage rapide
+
+### 1️⃣ Cloner le projet
+
+git clone https://github.com/ton-utilisateur/ton-projet.git
+cd ton-projet
+
+### 2️⃣ Lancer les conteneurs
+
+docker compose up --build
+
+Cette commande :
+- Démarre la base de données PostgreSQL
+- Exécute les migrations Django automatiquement
+- Lance Gunicorn pour le backend
+- Lance le serveur Nginx/Vue.js pour le frontend
+
+---
+
+## 🌐 Accès aux services
+
+| Service   | URL d’accès              | Description              |
+|------------|--------------------------|--------------------------|
+| Frontend   | http://localhost:8080 | Interface utilisateur |
+| Backend API | http://localhost:8000 | API Django REST |
+| PostgreSQL | localhost:5432         | Base de données |
+
+---
+
+## ⚡ Commandes utiles
+
+### Voir les logs
+docker compose logs -f
+
+### Rebuild complet
+docker compose up --build --force-recreate
+
+### Arrêter les conteneurs
+docker compose down
+
+### Supprimer les volumes (base de données incluse)
+docker compose down -v
+
+---
+
+## 🧩 Configuration Django
+
+Le backend utilise une variable DATABASE_URL pour la connexion PostgreSQL :
+
+postgres://user:admin123@db:5432/voiture_db
+
+Les migrations et le collectstatic sont exécutés automatiquement au démarrage.
+
+---
+
+## 🖥️ Configuration Frontend
+
+Le frontend est servi via Nginx à partir de la build Vue.js :
+- Port exposé : 8080
+- Le backend Django est accessible via http://backend:8000 depuis le conteneur frontend.
+
+---
+
+## 🧠 Dépannage
+
+- Si la base de données ne démarre pas, vérifiez que le port 5432 n’est pas déjà utilisé :
+  sudo lsof -i :5432
+- Pour réinitialiser complètement la base :
+  docker compose down -v && docker compose up --build
+
+---
+
+## 📜 Licence
+
+Ce projet est distribué sous licence MIT. Vous êtes libre de le réutiliser et le modifier.
+
+---
+
+## 👨‍💻 Auteur
+
+Paradisa R.
+Projet développé avec ❤️ à Madagascar.  
+N’hésite pas à contribuer ou signaler un bug !
