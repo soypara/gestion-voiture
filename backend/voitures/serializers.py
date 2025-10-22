@@ -1,3 +1,4 @@
+'''
 from rest_framework import serializers
 from .models import Direction, EtatVoiture, Voiture, Detenteur, Detention
 
@@ -29,3 +30,4 @@ class DetentionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detention
         fields = '__all__'
+'''        

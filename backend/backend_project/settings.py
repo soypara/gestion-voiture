@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'voitures',
-    'rest_framework',
+    #'rest_framework',
 
 ]
 
@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'backend_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'voituremndpt',   # nom de ta base PostgreSQL
-        'USER': 'postgres',          # ton utilisateur PostgreSQL
+        'NAME': 'voiture_db',   # nom de ta base PostgreSQL
+        'USER': 'user',          # ton utilisateur PostgreSQL
         'PASSWORD': 'admin123',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -128,3 +128,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

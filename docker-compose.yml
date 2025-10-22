@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  # --- Base de données PostgreSQL ---
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: voiture_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: admin123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # --- Backend Django ---
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: django_app
+    restart: always
+    command: >
+      sh -c "./wait-for-it.sh db:5432 -- 
+         python manage.py migrate &&
+         python manage.py collectstatic --noinput &&
+         gunicorn backend_project.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      DJANGO_SETTINGS_MODULE: backend_project.settings
+      DATABASE_URL: postgres://user:admin123@db:5432/voiture_db
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  # --- Frontend Vue.js ---
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vuejs_app
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
