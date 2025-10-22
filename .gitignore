@@ -1,0 +1,57 @@
+# --- Python / Django ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+*.env
+*.log
+*.pot
+*.pyc
+*.cover
+*.egg-info/
+*.egg
+*.pytest_cache/
+*.mypy_cache/
+*.venv/
+venv/
+env/
+.env
+*.db
+
+# Django
+staticfiles/
+media/
+*.sqlite3
+
+# --- Node / Vue.js ---
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# --- Docker ---
+*.dockerfile
+docker-compose.override.yml
+docker-compose.local.yml
+*.log
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- VS Code / IDE ---
+.vscode/
+.idea/
+*.iml
+
+# --- Coverage / Testing ---
+coverage/
+htmlcov/
+.tox/
+
+# --- Misc ---
+*.swp
+*.swo
