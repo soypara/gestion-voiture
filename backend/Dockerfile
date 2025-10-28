@@ -20,9 +20,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Étape 6 : Copier le reste du code de l’application
 COPY . .
+RUN chmod +x ./wait-for-it.sh
 
 # Étape 7 : Exposer le port (8000 par défaut)
 EXPOSE 8000
 
 # Étape 8 : Lancer Django avec Gunicorn (recommandé)
 CMD ["gunicorn", "backend_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+#CMD ["./wait-for-it.sh", "db:5432", "--", "gunicorn", "backend_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+
