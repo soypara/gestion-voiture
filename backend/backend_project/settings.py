@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'users',       # ton app user
     'voitures',    # ton app voiture
     'rest_framework',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
