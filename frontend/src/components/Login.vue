@@ -23,28 +23,39 @@ export default {
   },
   methods: {
     async handleLogin() {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/users/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: this.email, password: this.password }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem("access", data.access);
-        localStorage.setItem("refresh", data.refresh);
-        alert("Connexion réussie !");
-        this.$router.push("/dashboard"); // ou autre page
-      } else {
-        alert(data.error);
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/users/login/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: this.email, password: this.password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Stocke les tokens JWT
+          localStorage.setItem("access", data.access);
+          localStorage.setItem("refresh", data.refresh);
+
+          alert("Connexion réussie !");
+          this.$router.push("/dashboard"); // redirection après login
+        } else {
+          // Message d'erreur renvoyé par le backend
+          const errorMsg = data.detail || "Erreur login";
+          alert(errorMsg);
+        }
+      } catch (err) {
+        console.error("Erreur réseau :", err);
+        alert("Erreur réseau : impossible de contacter le serveur");
       }
-    } catch (err) {
-      console.error(err);
-    }
-  },
+    },
   },
 };
 </script>
+
+
+
+
 
 <style scoped>
 /* Tu peux copier le style de Register.vue et l’adapter */

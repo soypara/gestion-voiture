@@ -2,7 +2,7 @@
   <div id="register-page">
     <div class="register-box">
       <h1>Inscription</h1>
-      <form @submit.prevent="registerUser">
+      <form @submit.prevent="handleRegister">
         <input type="text" placeholder="Nom complet" v-model="name" required />
         <input type="email" placeholder="Email" v-model="email" required />
         <input type="password" placeholder="Mot de passe" v-model="password" required />
@@ -26,32 +26,41 @@ export default {
     };
   },
   methods: {
-    registerUser() {
-      console.log("Form submitted:", this.name, this.email, this.password);
-      // ici on connectera avec le backend plus tard
-    },
     async handleRegister() {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/users/register/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: this.email, name: this.name, password: this.password }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert("Compte créé !");
-        this.$router.push("/login");
-      } else {
-        alert(data.error || "Erreur inscription");
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/users/register/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: this.name, email: this.email, password: this.password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Sauvegarde des tokens JWT
+          localStorage.setItem("access", data.access);
+          localStorage.setItem("refresh", data.refresh);
+
+          alert("Compte créé et connecté !");
+          this.$router.push("/dashboard"); // redirection directe
+        } else {
+          // Affiche les erreurs reçues du backend
+          const errorMsg = data.email ? data.email.join(" ") : "Erreur inscription";
+          alert(errorMsg);
+        }
+      } catch (err) {
+        console.error("Erreur réseau :", err);
+        alert("Erreur réseau : impossible de contacter le serveur");
       }
-    } catch (err) {
-      console.error(err);
-    }
-  },
+    },
   },
 };
-
 </script>
+
+
+
+
+
 
 <style>
 #register-page {

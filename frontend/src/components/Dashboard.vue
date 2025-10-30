@@ -2,9 +2,10 @@
   <div class="dashboard">
     <div class="welcome-section">
       <h1 class="welcome-title">
-        Bienvenue dans l'application de gestion de voiture<br />
-        <span class="m">M</span><span class="n">N</span><span class="d">D</span><span class="p">P</span><span class="t">T</span>
-      </h1>
+  Bienvenue {{ userName }} dans l'application de gestion de voiture<br />
+  <span class="m">M</span><span class="n">N</span><span class="d">D</span><span class="p">P</span><span class="t">T</span>
+</h1>
+
     </div>
 
     <div class="carousel-container">
@@ -31,6 +32,9 @@
 </template>
 
 <script>
+import { jwtDecode } from "jwt-decode";
+ // npm install jwt-decode
+
 export default {
   name: "CarDashboard",
   data() {
@@ -57,9 +61,11 @@ export default {
       ],
       currentIndex: 0,
       autoScroll: null,
+      userName: "", // <- stockera le nom de l'utilisateur
     };
   },
   mounted() {
+    this.getUserName();
     this.startAutoScroll();
     window.addEventListener("keydown", this.handleKey);
   },
@@ -68,6 +74,13 @@ export default {
     clearInterval(this.autoScroll);
   },
   methods: {
+    getUserName() {
+      const token = localStorage.getItem("access");
+      if (token) {
+        const decoded = jwtDecode(token);
+        this.userName = decoded.name || ""; // 'name' doit correspondre au payload
+      }
+    },
     startAutoScroll() {
       this.autoScroll = setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % this.menus.length;
@@ -95,31 +108,17 @@ export default {
       const position = (index - this.currentIndex + this.menus.length) % this.menus.length;
       const baseZ = 10 - position;
       if (position === 0) {
-        return {
-          transform: "translateX(0) scale(1)",
-          filter: "blur(0px)",
-          zIndex: baseZ,
-          opacity: 1,
-        };
+        return { transform: "translateX(0) scale(1)", filter: "blur(0px)", zIndex: baseZ, opacity: 1 };
       } else if (position === 1) {
-        return {
-          transform: "translateX(50%) scale(0.9)",
-          filter: "blur(3px)",
-          zIndex: baseZ,
-          opacity: 0.8,
-        };
+        return { transform: "translateX(50%) scale(0.9)", filter: "blur(3px)", zIndex: baseZ, opacity: 0.8 };
       } else {
-        return {
-          transform: "translateX(-50%) scale(0.9)",
-          filter: "blur(3px)",
-          zIndex: baseZ,
-          opacity: 0.8,
-        };
+        return { transform: "translateX(-50%) scale(0.9)", filter: "blur(3px)", zIndex: baseZ, opacity: 0.8 };
       }
     },
   },
 };
 </script>
+
 
 <style scoped>
 .dashboard {
