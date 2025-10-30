@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',       # ton app user
+    'directions',
     'rest_framework',
     "corsheaders",
     'drf_yasg',
