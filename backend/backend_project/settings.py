@@ -19,6 +19,8 @@ INSTALLED_APPS = [
     'users',       # ton app user
     'rest_framework',
     "corsheaders",
+    'drf_yasg',
+
 ]
 
 MIDDLEWARE = [
