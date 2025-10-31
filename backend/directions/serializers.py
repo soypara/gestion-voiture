@@ -4,4 +4,4 @@ from .models import Direction
 class DirectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Direction
-        fields = '__all__'
+        fields = ['id', 'abr', 'nom']

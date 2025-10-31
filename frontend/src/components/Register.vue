@@ -28,7 +28,7 @@ export default {
   methods: {
     async handleRegister() {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/users/register/", {
+        const response = await fetch("http://127.0.0.1:8000/api/register/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name: this.name, email: this.email, password: this.password }),
