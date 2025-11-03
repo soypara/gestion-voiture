@@ -68,10 +68,10 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbmndpt',
-        'USER': 'postgres',
+        'NAME': 'voiture_db',
+        'USER': 'user',
         'PASSWORD': 'admin123',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }

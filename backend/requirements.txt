@@ -5,3 +5,4 @@ gunicorn
 psycopg2-binary
 drf-yasg
 dj-database-url
+django-cors-headers
