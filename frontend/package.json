@@ -11,6 +11,7 @@
     "axios": "^1.13.1",
     "core-js": "^3.8.3",
     "jwt-decode": "^4.0.0",
+    "sweetalert2": "^11.26.3",
     "vue": "^3.2.13",
     "vue-router": "^4.6.3"
   },

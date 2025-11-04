@@ -1,6 +1,10 @@
-from django.urls import path
-from .views import DirectionListCreateView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import DirectionViewSet
+
+router = DefaultRouter()
+router.register(r'directions', DirectionViewSet, basename='direction')
 
 urlpatterns = [
-    path('', DirectionListCreateView.as_view(), name='directions_list_create'),
+    path('', include(router.urls)),
 ]
