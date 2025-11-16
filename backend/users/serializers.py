@@ -1,5 +1,25 @@
 from rest_framework import serializers
 from .models import CustomUser
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
+from rest_framework import serializers
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    # On utilise l'email comme identifiant
+    username_field = 'email'
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        user = authenticate(username=email, password=password)
+        if user is None:
+            raise serializers.ValidationError('Email ou mot de passe incorrect')
+
+        data = super().validate(attrs)
+        data['name'] = user.name  # ou user.username si tu préfères
+        return data
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
