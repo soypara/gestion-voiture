@@ -18,6 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',       # ton app user
     'directions',
+    'voitures',
+    'detenteurs',
     'rest_framework',
     "corsheaders",
     'drf_yasg',

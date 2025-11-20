@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { jwtDecode } from "jwt-decode";
+//import { jwtDecode } from "jwt-decode";
  // npm install jwt-decode
 
 export default {
@@ -50,13 +50,13 @@ export default {
           title: "Détenteurs",
           desc: "Consultez les détenteurs actuels de chaque véhicule.",
           image: require("@/assets/detenteur.jpg"),
-          route: "/CarDetenteur",
+          route: "/detenteurs",
         },
         {
           title: "Statistiques des Voitures",
           desc: "Les voitures seront répertoriées et analysées ici.",
           image: require("@/assets/statistique.jpg"),
-          route: "/VoitureStats",
+          route: "/statistiques",
         },
       ],
       currentIndex: 0,
@@ -65,7 +65,7 @@ export default {
     };
   },
   mounted() {
-    this.getUserName();
+    //this.getUserName();
     this.startAutoScroll();
     window.addEventListener("keydown", this.handleKey);
   },
@@ -74,13 +74,13 @@ export default {
     clearInterval(this.autoScroll);
   },
   methods: {
-    getUserName() {
+    /*getUserName() {
       const token = localStorage.getItem("access");
       if (token) {
         const decoded = jwtDecode(token);
         this.userName = decoded.name || ""; // 'name' doit correspondre au payload
       }
-    },
+    },*/
     startAutoScroll() {
       this.autoScroll = setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % this.menus.length;
